@@ -121,3 +121,131 @@ body {
 .comment-form .btn { align-self: flex-end; }
 
 .empty-state { color: var(--text-muted); text-align: center; padding: 30px; }
+
+/* ===== Login split-screen layout ===== */
+.login-split {
+  display: flex;
+  min-height: 100vh;
+}
+
+@media (max-width: 860px) {
+  .login-split { flex-direction: column; }
+}
+
+/* --- Left panel: full-bleed photo --- */
+.login-visual {
+  position: relative;
+  flex: 1 1 50%;
+  min-height: 320px;
+  overflow: hidden;
+}
+
+.login-visual-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* --- Right panel: the actual login form --- */
+.login-form-side {
+  flex: 1 1 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc;
+  padding: 40px 20px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px 36px;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+  opacity: 0;
+  animation: login-fade-in 0.7s ease-out 0.1s forwards;
+}
+
+@keyframes login-fade-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- SUPPORT DESK header on the login card --- */
+.login-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.login-brand-icon {
+  width: 28px;
+  height: 28px;
+  color: #0f766e;
+  flex-shrink: 0;
+}
+
+.login-brand-text {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #0f172a;
+}
+
+.login-heading {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  color: var(--text);
+}
+
+.login-subheading {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0 0 26px;
+}
+
+.login-card label {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.login-card input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 5px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.login-card input:focus {
+  outline: none;
+  border-color: #0f766e;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
+}
+
+.login-submit {
+  width: 100%;
+  margin-top: 8px;
+  background: #0f766e;
+  padding: 11px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.login-submit:hover:not(:disabled) {
+  background: #115e59;
+}
+
+.login-submit:active:not(:disabled) {
+  transform: scale(0.98);
+}
