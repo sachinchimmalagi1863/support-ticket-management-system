@@ -1,5 +1,5 @@
 -- Support Ticket Management System - Sample Data
---
+
 -- NOTE ON PASSWORDS:
 -- Real bcrypt hashes cannot be safely hand-written into a .sql file.
 -- Run `npm run seed` from /backend instead (see backend/scripts/seed.js) --
