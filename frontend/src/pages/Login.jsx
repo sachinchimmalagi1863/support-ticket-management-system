@@ -42,12 +42,7 @@ export default function Login() {
         </button>
         <p className="auth-switch">
           Don't have an account? <Link to="/register">Sign up</Link>
-        </p>
-        <p className="auth-hint">
-          Demo: agent@example.com / Password123! (agent)<br />
-          customer@example.com / Password123! (customer)
-        </p>
-      </form>
+        </p>      </form>
     </div>
   );
 }
