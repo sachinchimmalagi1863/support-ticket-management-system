@@ -17,9 +17,9 @@ function Home() {
 
 export default function App() {
   return (
-    <>
+    <div className="app-shell">
       <Navbar />
-      <main>
+      <main className="app-main">
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -43,6 +43,6 @@ export default function App() {
           <Route path="*" element={<div className="page"><p>Page not found.</p></div>} />
         </Routes>
       </main>
-    </>
+    </div>
   );
 }
