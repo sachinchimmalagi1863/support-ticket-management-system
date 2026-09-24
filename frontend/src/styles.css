@@ -155,13 +155,13 @@ body {
   flex: 1 1 50%;
   height: 100%;
   overflow: hidden;
+  background: #e0f2fe;
 }
 
 .login-visual-photo {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  object-fit: contain;
   display: block;
 }
 
