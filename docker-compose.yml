@@ -1,0 +1,21 @@
+version: '3.8'
+
+# Optional: spins up just MySQL locally so you don't have to install it.
+# Run: docker compose up -d
+# Then point backend/.env at DB_HOST=localhost DB_PORT=3306 DB_USER=root DB_PASSWORD=rootpass
+
+services:
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: support_ticket_system
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+
+volumes:
+  mysql_data:
