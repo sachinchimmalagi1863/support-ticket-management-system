@@ -141,6 +141,14 @@ Import `tests/postman_collection.json` into Postman. Run the **Auth** folder
 first (it stores tokens as collection variables), then **Tickets**. Run
 `npm run seed` in the backend first so `agent@example.com` exists.
 
+The same collection can also be pointed at the live Railway deployment
+instead of `localhost:5000` — set the collection's `baseUrl` variable to
+`https://support-ticket-management-system-production.up.railway.app/api`
+and re-run the same folders. A Postman API Testing Report (PDF), documenting
+registration, login, ticket CRUD, and the authorization/validation edge
+cases run against the deployed production API, is included alongside this
+README.
+
 ---
 
 ## 6. API Reference
@@ -179,15 +187,17 @@ All protected routes require `Authorization: Bearer <token>`.
 
 ## 8. Deployment
 
-This app is two independently deployable pieces:
+This app is deployed as two independently deployable pieces, both hosted on **Railway**:
 
-1. **MySQL** — any managed MySQL host (PlanetScale, Railway, Render, AWS RDS, etc.)
-2. **Backend** — deploy `backend/` as a Node web service (Render, Railway, Fly.io, etc.). Set the env vars from `.env.example` in the platform's dashboard, then run the schema (and optionally `npm run seed`) against the managed database.
-3. **Frontend** — deploy `frontend/` as a static site (Vercel, Netlify, Render Static Site). Build command `npm run build`, publish directory `dist`. Set `VITE_API_URL` to the deployed backend's `/api` URL.
+1. **MySQL** — provisioned as a Railway MySQL plugin/service, attached to the backend service via Railway's internal networking. Connection env vars (`DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`) are pulled from the MySQL service's Railway-generated variables.
+2. **Backend** — deployed as a Railway web service from the `backend/` directory. Env vars from `.env.example` are set in the Railway service's **Variables** tab, the schema is run against the Railway MySQL instance (and `npm run seed` for demo data), and Railway builds/starts the service automatically on push (`npm start`).
+   Live backend: `https://support-ticket-management-system-production.up.railway.app`
+3. **Frontend** — deploy `frontend/` as a static site (Vercel, Netlify, Render Static Site, or a second Railway static/Node service). Build command `npm run build`, publish directory `dist`. Set `VITE_API_URL` to the deployed backend's `/api` URL, e.g. `https://support-ticket-management-system-production.up.railway.app/api`.
 
 After deploying, verify:
-- `GET <backend-url>/api/health` returns `{"status":"ok"}`
+- `GET https://support-ticket-management-system-production.up.railway.app/api/health` returns `{"status":"ok"}`
 - The frontend can register/login and reach the backend (check CORS `FRONTEND_URL` matches the deployed frontend origin)
+- Railway's deploy logs show the service listening on the `PORT` Railway injects (the app reads `process.env.PORT`, falling back to `5000` locally)
 
 ---
 
